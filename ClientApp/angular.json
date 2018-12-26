@@ -4,7 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "vega": {
-      "root": "",
+      "root": "ClientApp",
       "sourceRoot": "src",
       "projectType": "application",
       "prefix": "app",
