@@ -19,7 +19,7 @@ namespace vega.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("vega.Models.Feature", b =>
+            modelBuilder.Entity("vega.Core.Feature", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -34,7 +34,7 @@ namespace vega.Migrations
                     b.ToTable("Features");
                 });
 
-            modelBuilder.Entity("vega.Models.Make", b =>
+            modelBuilder.Entity("vega.Core.Make", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +49,7 @@ namespace vega.Migrations
                     b.ToTable("Makes");
                 });
 
-            modelBuilder.Entity("vega.Models.Model", b =>
+            modelBuilder.Entity("vega.Core.Model", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,7 +68,7 @@ namespace vega.Migrations
                     b.ToTable("Models");
                 });
 
-            modelBuilder.Entity("vega.Models.Vehicle", b =>
+            modelBuilder.Entity("vega.Core.Vehicle", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +98,7 @@ namespace vega.Migrations
                     b.ToTable("Vehicles");
                 });
 
-            modelBuilder.Entity("vega.Models.VehicleFeature", b =>
+            modelBuilder.Entity("vega.Core.VehicleFeature", b =>
                 {
                     b.Property<int>("VehicleId");
 
@@ -111,30 +111,30 @@ namespace vega.Migrations
                     b.ToTable("VehicleFeatures");
                 });
 
-            modelBuilder.Entity("vega.Models.Model", b =>
+            modelBuilder.Entity("vega.Core.Model", b =>
                 {
-                    b.HasOne("vega.Models.Make", "Make")
+                    b.HasOne("vega.Core.Make", "Make")
                         .WithMany("Models")
                         .HasForeignKey("MakeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("vega.Models.Vehicle", b =>
+            modelBuilder.Entity("vega.Core.Vehicle", b =>
                 {
-                    b.HasOne("vega.Models.Model", "Model")
+                    b.HasOne("vega.Core.Model", "Model")
                         .WithMany()
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("vega.Models.VehicleFeature", b =>
+            modelBuilder.Entity("vega.Core.VehicleFeature", b =>
                 {
-                    b.HasOne("vega.Models.Feature", "Feature")
+                    b.HasOne("vega.Core.Feature", "Feature")
                         .WithMany()
                         .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("vega.Models.Vehicle", "Vehicle")
+                    b.HasOne("vega.Core.Vehicle", "Vehicle")
                         .WithMany("Features")
                         .HasForeignKey("VehicleId")
                         .OnDelete(DeleteBehavior.Cascade);
