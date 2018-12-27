@@ -21,6 +21,10 @@ export class VehicleService {
       res => res as Feature[]
     ));
   }
+
+  create(vehicle) {
+    return this.http.post('/api/vehicles', vehicle);
+  }
 }
 
 interface Make {
