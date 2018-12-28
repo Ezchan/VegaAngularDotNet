@@ -15,9 +15,7 @@ export class AppErrorHandler implements ErrorHandler {
     //console.log("Error")
     if(!isDevMode) {
       Sentry.captureException(error.originalError || error);
-    } else {
-      throw error;
-    }
+    } 
     
     this.ngZone.run(() => {
       this.toastyService.error({

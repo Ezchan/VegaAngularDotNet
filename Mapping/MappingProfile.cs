@@ -23,7 +23,10 @@ namespace vega.Mapping
               .ForMember(vr => vr.Contact, opt => opt.MapFrom(v => new ContactResource { Name = v.ContactName, Email = v.ContactEmail, Phone = v.ContactPhone}))
               .ForMember(vr => vr.Features, opt => opt.MapFrom(v => v.Features.Select(vf => new KeyValuePairResource { Id = vf.Feature.Id, Name = vf.Feature.Name})));
             
+            
+            
             //API Resource to Domain
+            CreateMap<VehicleQueryResource, VehicleQueryResource>();
             CreateMap<SaveVehicleResource, Vehicle>()
               .ForMember(v => v.Id, opt => opt.Ignore())
               .ForMember(v => v.ContactName, opt => opt.MapFrom(vr => vr.Contact.Name))
@@ -40,7 +43,7 @@ namespace vega.Mapping
                   // }
 
                   //Changed to use LINQ
-                  var removedFeatures = v.Features.Where( f => !vr.Features.Contains(f.FeatureId));
+                  var removedFeatures = v.Features.Where( f => !vr.Features.Contains(f.FeatureId)).ToList();
                   foreach ( var f in removedFeatures) {
                     v.Features.Remove(f);
                   }
@@ -53,7 +56,7 @@ namespace vega.Mapping
                   // }
 
                   var addedFeatures = vr.Features.Where( id => !v.Features.Any(f => f.FeatureId == id))
-                    .Select(id => new VehicleFeature {FeatureId = id});
+                    .Select(id => new VehicleFeature {FeatureId = id}).ToList();
                   foreach (var f in addedFeatures) {
                       v.Features.Add(f);
                   }
