@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using vega.Controllers.Resources;
 using vega.Core;
+using vega.Core.Models;
 
 namespace vega.Mapping
 {
@@ -11,6 +12,7 @@ namespace vega.Mapping
         public MappingProfile()
         {
             //Domain to API Resources
+            CreateMap(typeof(QueryResult<>), typeof(QueryResultResource<>));
             CreateMap<Make, MakeResource>();
             CreateMap<Make, KeyValuePairResource>();
             CreateMap<Model, KeyValuePairResource>();
