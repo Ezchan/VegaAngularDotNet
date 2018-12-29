@@ -1,3 +1,4 @@
+import { ViewVehicleComponent } from './view-vehicle/view-vehicle';
 import { PaginationComponent } from './shared/pagination.component';
 import { AppErrorHandler } from './app.error-handler';
 import { VehicleService } from './services/vehicle.service';
@@ -7,6 +8,7 @@ import { NgModule, ErrorHandler, Injectable } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ToastyModule } from 'ng2-toasty';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserXhr } from '@angular/common/http/src/xhr';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -16,6 +18,7 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import * as Sentry from "@sentry/browser";
 import { VehicleListComponent } from './vehicle-list/vehicle-list.component';
+import { PhotoService } from './services/photo.service';
 
 Sentry.init({
   dsn: "https://1f59caa793f64572b63462de887a83c4@sentry.io/1360600"
@@ -31,7 +34,8 @@ Sentry.init({
     FetchDataComponent,
     VehicleFormComponent,
     VehicleListComponent,
-    PaginationComponent
+    PaginationComponent,
+    ViewVehicleComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -41,7 +45,8 @@ Sentry.init({
     RouterModule.forRoot([
       { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
       { path: 'vehicles/new', component: VehicleFormComponent },
-      { path: 'vehicles/:id', component: VehicleFormComponent },
+      { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+      { path: 'vehicles/:id', component: ViewVehicleComponent },
       { path: 'vehicles', component: VehicleListComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
@@ -49,7 +54,8 @@ Sentry.init({
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
-    VehicleService
+    VehicleService,
+    PhotoService,
   ],
   bootstrap: [AppComponent]
 })

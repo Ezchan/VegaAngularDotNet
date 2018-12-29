@@ -18,14 +18,15 @@ export class AppErrorHandler implements ErrorHandler {
     } 
     
     this.ngZone.run(() => {
-      this.toastyService.error({
-        title: 'Error',
-        msg: 'An unexpected error happened.',
-        theme: 'bootstrap',
-        showClose: true,
-        timeout: 5000
-      });
+        this.toastyService.error({
+          title: 'Error',
+          msg: error.error,
+          theme: 'bootstrap',
+          showClose: true,
+          timeout: 5000
+        });
+        console.log(error);
+
     })
   }
-
 }
