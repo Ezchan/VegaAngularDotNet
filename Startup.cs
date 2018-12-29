@@ -10,6 +10,7 @@ using vega.Persistence;
 using AutoMapper;
 using vega.Core;
 using vega.Core.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace vega
 {
@@ -32,6 +33,17 @@ namespace vega
             services.AddAutoMapper();
             services.AddDbContext<VegaDbContext>(options => options.UseSqlServer(Configuration["ConnectionStrings:Default"]));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://vegaauth-test.auth0.com/";
+                options.Audience = "https://api.vegaauth-test.com";
+            });
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -58,6 +70,7 @@ namespace vega
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
